@@ -55,7 +55,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'resume.wsgi.application'
 
-'''
+#'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -74,7 +74,7 @@ DATABASES = {
         'PORT': '',
     }
 }
-#'''
+'''
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},

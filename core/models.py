@@ -12,14 +12,35 @@ LANG_CHOICES = (('N/A', 'N/A'), ('Beginner', 'Beginner'),
 
 class Personal(models.Model):
     title = models.CharField(max_length=7, blank=False, choices=PREFIX_CHOICES)
-    full_name = models.CharField(max_length=25, primary_key=True, null=False)
+    first_name = models.CharField(max_length=12, null=False)
+    second_name = models.CharField(max_length=13, null=False)
+    third_name = models.CharField(max_length=10, null=True, blank=True)
+    full_name = models.CharField(max_length=35, primary_key=True, null=False)
     sex = models.CharField(max_length=7, null=False, choices=SEX_CHOICES)
-    address = models.CharField(max_length=30, blank=True)
-    phone = models.CharField(max_length=15, blank=True)
+    dob = models.DateField(blank=True, null=True)
+    street = models.CharField(max_length=30, blank=True)
+    city = models.CharField(max_length=30, blank=True)
+    country = models.CharField(max_length=30, blank=True)
+    zip = models.CharField(max_length=3, blank=True)
+    phone = models.CharField(max_length=9, blank=True)
+    telephone = models.CharField(max_length=14, blank=True)
     email = models.CharField(max_length=30, blank=True)
     site = models.CharField(max_length=25, blank=True)
     degree = models.CharField(max_length=30, blank=True)
     freelance = models.CharField(max_length=15, blank=True)
+
+    def __str__(self):
+        return str(self.full_name).upper()
+
+    def save(self, *args, **kwargs):
+        zip = ("+" + str(self.zip))
+        self.zip = zip
+        self.telephone = zip + " " + str(self.phone)
+        self.first_name = (str(self.first_name).upper())
+        self.second_name = (str(self.second_name).upper())
+        self.third_name = (str(self.third_name).upper())
+        self.full_name = (str(self.first_name).upper() + " " + str(self.second_name).upper() + " " + str(self.third_name).upper())
+        super(Personal, self).save(*args, **kwargs)
 
 
 class Education(models.Model):
@@ -50,8 +71,9 @@ class ProfExperience(models.Model):
     description4 = models.TextField(max_length=100, blank=True, null=True)
 
 
-class Skills(models.Model):
+class Skill(models.Model):
     user = models.ForeignKey(Personal, on_delete=models.CASCADE)
+    title = models.CharField(max_length=20, blank=False, null=False)
     skill = models.CharField(max_length=20, blank=False, null=False)
     percentage = models.CharField(max_length=3, blank=False, null=False)
 
