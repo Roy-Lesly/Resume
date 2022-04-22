@@ -10,9 +10,10 @@ environ.Env.read_env()
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = env('SECRET_KEY')
-DEBUG = env('DEBUG')
-ALLOWED_HOSTS = [env('ALLOWED_HOST')]
+#SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = '9h4tr%g_u9b#50wvxkm6jq&*j6m@iixn_1_t(f*qlib^as4^&5'
+DEBUG = True
+ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -97,3 +98,6 @@ STATICFILES_DIRS = (
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import django_heroku
+django_heroku.settings(locals())
